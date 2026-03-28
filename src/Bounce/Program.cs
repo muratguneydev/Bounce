@@ -7,8 +7,7 @@ public class Program
         Console.Clear();
 
         var ball = new Ball(
-            X: GameDimensions.Width / 2,
-            Y: GameDimensions.Height / 2,
+            Position: new Position(GameDimensions.Width / 2, GameDimensions.Height / 2),
             DX: 0,
             DY: 0);
 

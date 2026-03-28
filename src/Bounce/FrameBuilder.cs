@@ -15,25 +15,26 @@ public static class FrameBuilder
 
     private static void DrawWalls(Frame frame, int width, int height)
     {
-        for (var col = 0; col < width; col++)
+        frame.PlaceCorner(Position.Origin());
+        frame.PlaceCorner(Position.TopRight());
+
+        for (var col = 1; col < width - 1; col++)
         {
-            frame.Set(new Position(col, 0), col == 0 || col == width - 1 ? '+' : '-');
+            frame.PlaceHorizontalWall(Position.OnTopEdge(col));
         }
 
         for (var row = 1; row < height; row++)
         {
-            frame.Set(new Position(0, row), '|');
-            frame.Set(new Position(width - 1, row), '|');
+            frame.PlaceVerticalWall(Position.OnLeftEdge(row));
+            frame.PlaceVerticalWall(Position.OnRightEdge(row));
         }
     }
 
     private static void DrawBall(Frame frame, Ball ball)
     {
-        var position = new Position((int)ball.X, (int)ball.Y);
-
-        if (position.X >= 0 && position.X < frame.Width && position.Y >= 0 && position.Y < frame.Height)
+        if (ball.Position.X >= 0 && ball.Position.X < frame.Width && ball.Position.Y >= 0 && ball.Position.Y < frame.Height)
         {
-            frame.Set(position, 'O');
+            frame.PlaceBall(ball.Position);
         }
     }
 
@@ -43,7 +44,7 @@ public static class FrameBuilder
         {
             if (col >= 0 && col < frame.Width)
             {
-                frame.Set(new Position(col, height - 1), '=');
+                frame.PlacePaddle(Position.OnBottomEdge(col));
             }
         }
     }

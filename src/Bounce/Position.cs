@@ -2,6 +2,8 @@ namespace Bounce;
 
 public record Position(int X, int Y)
 {
+    public Position Translate(double dx, double dy) => new((int)(X + dx), (int)(Y + dy));
+
     // Fully known — no parameters
     public static Position Origin() => new(0, 0);
 

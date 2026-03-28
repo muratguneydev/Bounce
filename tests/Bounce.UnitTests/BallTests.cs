@@ -14,7 +14,7 @@ public class BallTests
     {
         // Arrange
         var ball = _fixture.Create<Ball>();
-        var expected = ball with { X = ball.X + ball.DX, Y = ball.Y + ball.DY };
+        var expected = ball with { Position = ball.Position.Translate(ball.DX, ball.DY) };
 
         // Act
         var result = ball.Move();
@@ -28,7 +28,7 @@ public class BallTests
     {
         // Arrange
         var ball = _fixture.Create<Ball>();
-        var expected = ball with { X = ball.X + ball.DX * 2, Y = ball.Y + ball.DY * 2 };
+        var expected = ball with { Position = ball.Position.Translate(ball.DX * 2, ball.DY * 2) };
 
         // Act
         var result = ball.Move().Move();

@@ -6,7 +6,7 @@ using NUnit.Framework;
 public class GameTests
 {
     private readonly FakeRenderer _renderer = new();
-    private readonly Ball _initialBall = new(X: 10, Y: 5, DX: 1, DY: 1);
+    private readonly Ball _initialBall = new(Position: new Position(10, 5), DX: 1, DY: 1);
     private readonly Paddle _initialPaddle = new(X: 26, Width: 7);
 
     [Test]
@@ -63,8 +63,8 @@ public class GameTests
         game.Start();
 
         // Assert
-        _renderer.ShouldShowCharAt('+', Position.Origin());
-        _renderer.ShouldShowCharAt('-', Position.OnTopEdge(1));
-        _renderer.ShouldShowCharAt('+', Position.TopRight());
+        _renderer.ShouldShowCornerAt(Position.Origin());
+        _renderer.ShouldShowHorizontalWallAt(Position.OnTopEdge(1));
+        _renderer.ShouldShowCornerAt(Position.TopRight());
     }
 }

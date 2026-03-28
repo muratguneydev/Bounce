@@ -2,6 +2,13 @@ namespace Bounce;
 
 public class Frame
 {
+    private const char BallChar = 'O';
+    private const char PaddleChar = '=';
+    private const char CornerChar = '+';
+    private const char HorizontalWallChar = '-';
+    private const char VerticalWallChar = '|';
+    private const char EmptyChar = ' ';
+
     private readonly char[,] _grid;
 
     public int Width { get; }
@@ -17,18 +24,28 @@ public class Frame
         {
             for (var col = 0; col < width; col++)
             {
-                _grid[row, col] = ' ';
+                _grid[row, col] = EmptyChar;
             }
         }
     }
 
-    public char CharAt(Position position)
-    {
-        return _grid[position.Y, position.X];
-    }
+    // Write methods
+    public void PlaceBall(Position position) => Set(position, BallChar);
+    public void PlacePaddle(Position position) => Set(position, PaddleChar);
+    public void PlaceCorner(Position position) => Set(position, CornerChar);
+    public void PlaceHorizontalWall(Position position) => Set(position, HorizontalWallChar);
+    public void PlaceVerticalWall(Position position) => Set(position, VerticalWallChar);
 
-    public void Set(Position position, char c)
-    {
-        _grid[position.Y, position.X] = c;
-    }
+    // Query methods
+    public bool IsBallAt(Position position) => CharAt(position) == BallChar;
+    public bool IsPaddleAt(Position position) => CharAt(position) == PaddleChar;
+    public bool IsEmptyAt(Position position) => CharAt(position) == EmptyChar;
+    public bool IsCornerAt(Position position) => CharAt(position) == CornerChar;
+    public bool IsHorizontalWallAt(Position position) => CharAt(position) == HorizontalWallChar;
+    public bool IsVerticalWallAt(Position position) => CharAt(position) == VerticalWallChar;
+
+    // Used by ConsoleRenderer to iterate and write each cell
+    public char CharAt(Position position) => _grid[position.Y, position.X];
+
+    private void Set(Position position, char c) => _grid[position.Y, position.X] = c;
 }

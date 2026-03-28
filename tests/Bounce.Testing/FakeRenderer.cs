@@ -21,27 +21,32 @@ public class FakeRenderer : IRenderer
 
     public void ShouldShowBallAt(Position position)
     {
-        CharAt(position).ShouldBe('O', $"Expected ball 'O' at {position}");
+        Frame().IsBallAt(position).ShouldBeTrue($"Expected ball at {position}");
     }
 
     public void ShouldShowEmptyAt(Position position)
     {
-        CharAt(position).ShouldBe(' ', $"Expected empty ' ' at {position}");
+        Frame().IsEmptyAt(position).ShouldBeTrue($"Expected empty at {position}");
     }
 
     public void ShouldShowPaddleAt(Position position)
     {
-        CharAt(position).ShouldBe('=', $"Expected paddle '=' at {position}");
+        Frame().IsPaddleAt(position).ShouldBeTrue($"Expected paddle at {position}");
     }
 
-    public void ShouldShowCharAt(char expected, Position position)
+    public void ShouldShowCornerAt(Position position)
     {
-        CharAt(position).ShouldBe(expected, $"Expected '{expected}' at {position}");
+        Frame().IsCornerAt(position).ShouldBeTrue($"Expected corner at {position}");
     }
 
-    private char CharAt(Position position)
+    public void ShouldShowHorizontalWallAt(Position position)
+    {
+        Frame().IsHorizontalWallAt(position).ShouldBeTrue($"Expected horizontal wall at {position}");
+    }
+
+    private Frame Frame()
     {
         _lastFrame.ShouldNotBeNull("Render() has not been called yet.");
-        return _lastFrame.CharAt(position);
+        return _lastFrame;
     }
 }
