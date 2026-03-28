@@ -3,7 +3,12 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Bounce.Testing</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoFixture" Version="4.*" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Bounce\Bounce.csproj" />

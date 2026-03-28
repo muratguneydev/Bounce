@@ -1,52 +1,39 @@
-using Bounce;
-using NUnit.Framework;
-
 namespace Bounce.UnitTests;
 
-[TestFixture]
+using AutoFixture;
+using Bounce.Testing;
+using NUnit.Framework;
+using Shouldly;
+
 public class BallTests
 {
+    private readonly Fixture _fixture = BounceFixture.Create();
+
     [Test]
-    public void Move_UpdatesPositionByVelocity()
+    public void ShouldUpdatePositionByVelocity_WhenMoving()
     {
-        var ball = new Ball(10.0, 5.0, dx: 1.0, dy: 1.0);
+        // Arrange
+        var ball = _fixture.Create<Ball>();
+        var expected = ball with { X = ball.X + ball.DX, Y = ball.Y + ball.DY };
 
-        ball.Move();
+        // Act
+        var result = ball.Move();
 
-        Assert.That(ball.X, Is.EqualTo(11.0));
-        Assert.That(ball.Y, Is.EqualTo(6.0));
+        // Assert
+        result.ShouldBe(expected);
     }
 
     [Test]
-    public void Move_HandlesNegativeVelocity()
+    public void ShouldUpdatePositionByDoubleVelocity_WhenMovingTwice()
     {
-        var ball = new Ball(10.0, 5.0, dx: -1.0, dy: -1.0);
+        // Arrange
+        var ball = _fixture.Create<Ball>();
+        var expected = ball with { X = ball.X + ball.DX * 2, Y = ball.Y + ball.DY * 2 };
 
-        ball.Move();
+        // Act
+        var result = ball.Move().Move();
 
-        Assert.That(ball.X, Is.EqualTo(9.0));
-        Assert.That(ball.Y, Is.EqualTo(4.0));
-    }
-
-    [Test]
-    public void Move_HandlesFractionalVelocity()
-    {
-        var ball = new Ball(10.0, 5.0, dx: 0.5, dy: -0.5);
-
-        ball.Move();
-
-        Assert.That(ball.X, Is.EqualTo(10.5));
-        Assert.That(ball.Y, Is.EqualTo(4.5));
-    }
-
-    [Test]
-    public void Constructor_SetsInitialProperties()
-    {
-        var ball = new Ball(3.0, 7.0, dx: 2.0, dy: -1.0);
-
-        Assert.That(ball.X, Is.EqualTo(3.0));
-        Assert.That(ball.Y, Is.EqualTo(7.0));
-        Assert.That(ball.DX, Is.EqualTo(2.0));
-        Assert.That(ball.DY, Is.EqualTo(-1.0));
+        // Assert
+        result.ShouldBe(expected);
     }
 }
