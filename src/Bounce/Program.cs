@@ -2,19 +2,23 @@ namespace Bounce;
 
 public class Program
 {
-    private const int Width = 60;
-    private const int Height = 20;
-
     public static void Main(string[] args)
     {
         Console.Clear();
 
-        var ball = new Ball(X: Width / 2, Y: Height / 2, DX: 0, DY: 0);
-        var paddle = new Paddle(X: Width / 2 - 3, Width: 7);
-        var state = new GameState(ball, paddle, Score: 0, Status: GameStatus.Playing);
+        var ball = new Ball(
+            X: GameDimensions.Width / 2,
+            Y: GameDimensions.Height / 2,
+            DX: 0,
+            DY: 0);
+
+        var paddle = new Paddle(
+            X: GameDimensions.Width / 2 - 3,
+            Width: 7);
 
         var renderer = new ConsoleRenderer();
-        renderer.Render(state);
+        var game = new Game(renderer, ball, paddle);
+        game.Start();
 
         Console.ReadKey(intercept: true);
     }

@@ -4,10 +4,12 @@
     <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Bounce.Testing</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.*" />
+    <PackageReference Include="Shouldly" Version="4.*" />
   </ItemGroup>
 
   <ItemGroup>

@@ -10,6 +10,9 @@ out/
 *.suo
 *.userosscache
 *.sln.docstates
+*.assets.json
+project.assets.json
+.ionide/
 
 # Rider
 .idea/
