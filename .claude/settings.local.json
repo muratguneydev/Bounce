@@ -3,7 +3,9 @@
     "allow": [
       "Bash(dotnet:*)",
       "Bash(where dotnet:*)",
-      "Bash(docker compose:*)"
+      "Bash(docker compose:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }
