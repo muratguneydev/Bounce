@@ -2,6 +2,8 @@ namespace Bounce;
 
 public record Paddle(int X, int Width)
 {
+    public IEnumerable<int> OccupiedColumns => Enumerable.Range(X, Width);
+
     public Paddle MoveLeft()
     {
         if (X > 0)

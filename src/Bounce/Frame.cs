@@ -44,6 +44,9 @@ public class Frame
     public bool IsHorizontalWallAt(Position position) => CharAt(position) == HorizontalWallChar;
     public bool IsVerticalWallAt(Position position) => CharAt(position) == VerticalWallChar;
 
+    public bool Contains(Position position) =>
+        position.X >= 0 && position.X < Width && position.Y >= 0 && position.Y < Height;
+
     // Used by ConsoleRenderer to iterate and write each cell
     public char CharAt(Position position) => _grid[position.Y, position.X];
 

@@ -6,24 +6,24 @@ public static class FrameBuilder
     {
         var frame = new Frame(width, height);
 
-        DrawWalls(frame, width, height);
+        DrawWalls(frame);
         DrawBall(frame, state.Ball);
-        DrawPaddle(frame, state.Paddle, height);
+        DrawPaddle(frame, state.Paddle);
 
         return frame;
     }
 
-    private static void DrawWalls(Frame frame, int width, int height)
+    private static void DrawWalls(Frame frame)
     {
         frame.PlaceCorner(Position.Origin());
         frame.PlaceCorner(Position.TopRight());
 
-        for (var col = 1; col < width - 1; col++)
+        for (var col = 1; col < frame.Width - 1; col++)
         {
             frame.PlaceHorizontalWall(Position.OnTopEdge(col));
         }
 
-        for (var row = 1; row < height; row++)
+        for (var row = 1; row < frame.Height; row++)
         {
             frame.PlaceVerticalWall(Position.OnLeftEdge(row));
             frame.PlaceVerticalWall(Position.OnRightEdge(row));
@@ -32,19 +32,20 @@ public static class FrameBuilder
 
     private static void DrawBall(Frame frame, Ball ball)
     {
-        if (ball.Position.X >= 0 && ball.Position.X < frame.Width && ball.Position.Y >= 0 && ball.Position.Y < frame.Height)
+        if (frame.Contains(ball.Position))
         {
             frame.PlaceBall(ball.Position);
         }
     }
 
-    private static void DrawPaddle(Frame frame, Paddle paddle, int height)
+    private static void DrawPaddle(Frame frame, Paddle paddle)
     {
-        for (var col = paddle.X; col < paddle.X + paddle.Width; col++)
+        foreach (var col in paddle.OccupiedColumns)
         {
-            if (col >= 0 && col < frame.Width)
+            var position = Position.OnBottomEdge(col);
+            if (frame.Contains(position))
             {
-                frame.PlacePaddle(Position.OnBottomEdge(col));
+                frame.PlacePaddle(position);
             }
         }
     }
