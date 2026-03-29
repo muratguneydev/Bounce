@@ -4,24 +4,31 @@ public static class CollisionDetector
 {
     public static Ball CheckWalls(Ball ball)
     {
-        var dx = ball.DX;
-        var dy = ball.DY;
-
         if (ball.HasReachedLeftWall)
         {
-            dx = Math.Abs(dx);
+            ball = ball.BounceRight();
         }
 
         if (ball.HasReachedRightWall)
         {
-            dx = -Math.Abs(dx);
+            ball = ball.BounceLeft();
         }
 
         if (ball.HasReachedTopWall)
         {
-            dy = Math.Abs(dy);
+            ball = ball.BounceDown();
         }
 
-        return ball with { DX = dx, DY = dy };
+        return ball;
+    }
+
+    public static Ball CheckPaddle(Ball ball, Paddle paddle)
+    {
+        if (ball.HasReachedPaddleRow && paddle.OccupiedColumns.Contains(ball.Position.X))
+        {
+            return ball.BounceUp();
+        }
+
+        return ball;
     }
 }

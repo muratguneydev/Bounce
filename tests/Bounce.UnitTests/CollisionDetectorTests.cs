@@ -69,4 +69,18 @@ public class CollisionDetectorTests
         // Assert
         result.ShouldBe(ball with { DX = 1, DY = 1 });
     }
+
+    [Test]
+    public void ShouldReverseDY_WhenBallHitsPaddle()
+    {
+        // Arrange
+        var paddle = new Paddle(X: 10, Width: GameDimensions.PaddleWidth);
+        var ball = new Ball(new Position(10, GameDimensions.Height - 2), DX: 1, DY: 1);
+
+        // Act
+        var result = CollisionDetector.CheckPaddle(ball, paddle);
+
+        // Assert
+        result.ShouldBe(ball with { DY = -1 });
+    }
 }

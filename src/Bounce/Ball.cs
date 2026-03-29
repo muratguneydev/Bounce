@@ -7,6 +7,11 @@ public record Ball(Position Position, double DX, double DY)
     public bool HasReachedTopWall => Position.Y <= 1;
     public bool HasReachedPaddleRow => Position.Y >= GameDimensions.Height - 2;
 
+    public Ball BounceRight() => this with { DX = Math.Abs(DX) };
+    public Ball BounceLeft() => this with { DX = -Math.Abs(DX) };
+    public Ball BounceDown() => this with { DY = Math.Abs(DY) };
+    public Ball BounceUp() => this with { DY = -Math.Abs(DY) };
+
     public Ball Move()
     {
         return this with { Position = Position.Translate(DX, DY) };

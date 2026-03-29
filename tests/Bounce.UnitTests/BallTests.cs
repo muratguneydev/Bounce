@@ -38,6 +38,46 @@ public class BallTests
     }
 
     [Test]
+    public void ShouldForceDXPositive_WhenBouncingRight()
+    {
+        // Arrange
+        var ball = new Ball(new Position(10, 5), DX: -1, DY: 1);
+
+        // Act & Assert
+        ball.BounceRight().ShouldBe(ball with { DX = 1 });
+    }
+
+    [Test]
+    public void ShouldForceDXNegative_WhenBouncingLeft()
+    {
+        // Arrange
+        var ball = new Ball(new Position(10, 5), DX: 1, DY: 1);
+
+        // Act & Assert
+        ball.BounceLeft().ShouldBe(ball with { DX = -1 });
+    }
+
+    [Test]
+    public void ShouldForceDYPositive_WhenBouncingDown()
+    {
+        // Arrange
+        var ball = new Ball(new Position(10, 5), DX: 1, DY: -1);
+
+        // Act & Assert
+        ball.BounceDown().ShouldBe(ball with { DY = 1 });
+    }
+
+    [Test]
+    public void ShouldForceDYNegative_WhenBouncingUp()
+    {
+        // Arrange
+        var ball = new Ball(new Position(10, 5), DX: 1, DY: 1);
+
+        // Act & Assert
+        ball.BounceUp().ShouldBe(ball with { DY = -1 });
+    }
+
+    [Test]
     public void ShouldHaveReachedPaddleRow_WhenBallIsAtPaddleRow()
     {
         // Arrange
