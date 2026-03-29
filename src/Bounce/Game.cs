@@ -11,6 +11,8 @@ public class Game
         _state = new GameState(initialBall, initialPaddle, Score: 0, Status: GameStatus.Playing);
     }
 
+    public bool IsOver => _state.Status == GameStatus.GameOver;
+
     public void Start()
     {
         _renderer.Render(_state);

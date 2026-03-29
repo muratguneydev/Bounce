@@ -2,6 +2,7 @@ namespace Bounce.IntegrationTests;
 
 using Bounce.Testing;
 using NUnit.Framework;
+using Shouldly;
 
 public class GameTests
 {
@@ -81,6 +82,19 @@ public class GameTests
         // Assert
         _renderer.ShouldShowPaddleAt(Position.OnBottomEdge(_initialPaddle.X - 1));
         _renderer.ShouldShowEmptyAt(Position.OnBottomEdge(_initialPaddle.X + _initialPaddle.Width - 1));
+    }
+
+    [Test]
+    public void ShouldNotBeOver_WhenGameStarts()
+    {
+        // Arrange
+        var game = new Game(_renderer, _initialBall, _initialPaddle);
+
+        // Act
+        game.Start();
+
+        // Assert
+        game.IsOver.ShouldBeFalse();
     }
 
     [Test]
