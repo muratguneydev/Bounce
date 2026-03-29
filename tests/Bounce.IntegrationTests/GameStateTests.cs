@@ -82,4 +82,19 @@ public class GameTests
         _renderer.ShouldShowPaddleAt(Position.OnBottomEdge(_initialPaddle.X - 1));
         _renderer.ShouldShowEmptyAt(Position.OnBottomEdge(_initialPaddle.X + _initialPaddle.Width - 1));
     }
+
+    [Test]
+    public void ShouldRenderPaddleOneColumnRight_AfterMovePaddleRight()
+    {
+        // Arrange
+        var game = new Game(_renderer, _initialBall, _initialPaddle);
+        game.Start();
+
+        // Act
+        game.MovePaddleRight();
+
+        // Assert
+        _renderer.ShouldShowPaddleAt(Position.OnBottomEdge(_initialPaddle.X + _initialPaddle.Width));
+        _renderer.ShouldShowEmptyAt(Position.OnBottomEdge(_initialPaddle.X));
+    }
 }
