@@ -5,7 +5,7 @@ public record Ball(Position Position, double DX, double DY)
     public bool HasReachedLeftWall => Position.X <= 1;
     public bool HasReachedRightWall => Position.X >= GameDimensions.Width - 2;
     public bool HasReachedTopWall => Position.Y <= 1;
-    public bool HasReachedPaddleRow => Position.Y >= GameDimensions.Height - 2;
+    public bool HasReachedPaddleRow => Position.Y >= GameDimensions.BottomY - 1;
 
     public Ball BounceRight() => this with { DX = Math.Abs(DX) };
     public Ball BounceLeft() => this with { DX = -Math.Abs(DX) };

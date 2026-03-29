@@ -58,14 +58,14 @@ public class GameStateTests
     {
         // Arrange
         var paddle = new Paddle(X: 10, Width: GameDimensions.PaddleWidth);
-        var ball = new Ball(new Position(10, GameDimensions.Height - 2), DX: 1, DY: 1);
+        var ball = new Ball(new Position(10, GameDimensions.BottomY - 1), DX: 1, DY: 1);
         var state = GameState.Initial(ball, paddle);
 
         // Act
         var result = state.Tick();
 
         // Assert
-        var expected = state with { Ball = ball with { DY = -1, Position = new Position(11, GameDimensions.Height - 3) } };
+        var expected = state with { Ball = ball with { DY = -1, Position = new Position(11, GameDimensions.BottomY - 2) } };
         result.ShouldBe(expected);
     }
 }

@@ -81,7 +81,7 @@ public class BallTests
     public void ShouldHaveReachedPaddleRow_WhenBallIsAtPaddleRow()
     {
         // Arrange
-        var ball = new Ball(new Position(10, GameDimensions.Height - 2), DX: 1, DY: 1);
+        var ball = new Ball(new Position(10, GameDimensions.BottomY - 1), DX: 1, DY: 1);
 
         // Act & Assert
         ball.HasReachedPaddleRow.ShouldBeTrue();
@@ -91,7 +91,7 @@ public class BallTests
     public void ShouldNotHaveReachedPaddleRow_WhenBallIsAbovePaddleRow()
     {
         // Arrange
-        var ball = new Ball(new Position(10, GameDimensions.Height - 3), DX: 1, DY: 1);
+        var ball = new Ball(new Position(10, GameDimensions.BottomY - 2), DX: 1, DY: 1);
 
         // Act & Assert
         ball.HasReachedPaddleRow.ShouldBeFalse();

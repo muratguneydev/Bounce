@@ -13,10 +13,10 @@ public record Position(int X, int Y)
 
     // One axis is at the far end — only the other is needed
     public static Position OnRightEdge(int y) => new(GameDimensions.Width - 1, y);
-    public static Position OnBottomEdge(int x) => new(x, GameDimensions.Height - 1);
+    public static Position OnBottomEdge(int x) => new(x, GameDimensions.BottomY);
 
     // Corners — fully derivable from GameDimensions
     public static Position TopRight() => new(GameDimensions.Width - 1, 0);
-    public static Position BottomLeft() => new(0, GameDimensions.Height - 1);
-    public static Position BottomRight() => new(GameDimensions.Width - 1, GameDimensions.Height - 1);
+    public static Position BottomLeft() => new(0, GameDimensions.BottomY);
+    public static Position BottomRight() => new(GameDimensions.Width - 1, GameDimensions.BottomY);
 }

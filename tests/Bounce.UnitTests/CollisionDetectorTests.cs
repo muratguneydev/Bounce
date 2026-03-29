@@ -75,7 +75,7 @@ public class CollisionDetectorTests
     {
         // Arrange
         var paddle = new Paddle(X: 10, Width: GameDimensions.PaddleWidth);
-        var ball = new Ball(new Position(10, GameDimensions.Height - 2), DX: 1, DY: 1);
+        var ball = new Ball(new Position(10, GameDimensions.BottomY - 1), DX: 1, DY: 1);
 
         // Act
         var result = CollisionDetector.CheckPaddle(ball, paddle);
@@ -89,7 +89,7 @@ public class CollisionDetectorTests
     {
         // Arrange
         var paddle = new Paddle(X: 10, Width: GameDimensions.PaddleWidth);
-        var ball = new Ball(new Position(1, GameDimensions.Height - 2), DX: 1, DY: 1);
+        var ball = new Ball(new Position(1, GameDimensions.BottomY - 1), DX: 1, DY: 1);
 
         // Act
         var result = CollisionDetector.CheckPaddle(ball, paddle);
@@ -103,7 +103,7 @@ public class CollisionDetectorTests
     {
         // Arrange
         var paddle = new Paddle(X: 10, Width: GameDimensions.PaddleWidth);
-        var ball = new Ball(new Position(10, GameDimensions.Height - 3), DX: 1, DY: 1);
+        var ball = new Ball(new Position(10, GameDimensions.BottomY - 2), DX: 1, DY: 1);
 
         // Act
         var result = CollisionDetector.CheckPaddle(ball, paddle);

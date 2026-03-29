@@ -11,7 +11,7 @@ public static class BounceFixture
         fixture.Customize<Position>(c => c.FromFactory<int, int>((i, j) =>
             new Position(
                 Math.Abs(i % (GameDimensions.Width - 2)) + 1,
-                Math.Abs(j % (GameDimensions.Height - 2)) + 1)));
+                Math.Abs(j % (GameDimensions.BottomY - 1)) + 1)));
 
         fixture.Customize<Ball>(c => c.FromFactory<double, double>((dx, dy) =>
             new Ball(fixture.Create<Position>(), DX: dx % 3 + 1, DY: dy % 3 + 1)));
