@@ -8,8 +8,8 @@ public class Program
 
         var ball = new Ball(
             Position: new Position(GameDimensions.Width / 2, GameDimensions.Height / 2),
-            DX: 0,
-            DY: 0);
+            DX: 1,
+            DY: 1);
 
         var paddle = new Paddle(
             X: GameDimensions.Width / 2 - GameDimensions.PaddleWidth / 2,
