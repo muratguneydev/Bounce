@@ -102,6 +102,22 @@ public class GameStateTests
     }
 
     [Test]
+    public void ShouldNotIncrementScore_WhenBallMissesPaddle_AfterTick()
+    {
+        // Arrange
+        var paddle = new Paddle(X: 10, Width: GameDimensions.PaddleWidth);
+        var ball = new Ball(new Position(1, GameDimensions.BottomY - 1), DX: 1, DY: 1);
+        var state = GameState.Initial(ball, paddle);
+
+        // Act
+        var result = state.Tick();
+
+        // Assert
+        var expected = GameState.WithGameOver(ball.Move(), paddle, score: 0);
+        result.ShouldBe(expected);
+    }
+
+    [Test]
     public void ShouldNotChangeState_WhenTickCalledAfterGameOver()
     {
         // Arrange
