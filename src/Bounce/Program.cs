@@ -12,8 +12,8 @@ public class Program
             DY: 0);
 
         var paddle = new Paddle(
-            X: GameDimensions.Width / 2 - 3,
-            Width: 7);
+            X: GameDimensions.Width / 2 - GameDimensions.PaddleWidth / 2,
+            Width: GameDimensions.PaddleWidth);
 
         var renderer = new ConsoleRenderer();
         var game = new Game(renderer, ball, paddle);
