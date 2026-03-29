@@ -6,45 +6,45 @@
 
 ---
 
-## 1. Wire wall collision into `GameState.Tick()`
+## 1. Wire wall collision into `GameState.Tick()` ✅
 
-`CollisionDetector.CheckWalls()` exists but `Tick()` only calls `Ball.Move()`. Order matters: check walls first, then move.
-
-- [ ] Call `CollisionDetector.CheckWalls(ball)` before `Ball.Move()` in `GameState.Tick()`
-- [ ] Add/update integration tests in `GameStateTests`
+- [x] Call `CollisionDetector.CheckWalls(ball)` before `Ball.Move()` in `GameState.Tick()`
+- [x] Add wall collision tests in `GameStateTests`
 
 ---
 
-## 2. Paddle collision detection
+## 2. Paddle collision detection ✅
 
-- [ ] Add `HasReachedPaddleRow` property to `Ball` (Y >= `GameDimensions.Height - 2`)
-- [ ] Add `CollisionDetector.CheckPaddle(ball, paddle)` — if ball is on paddle row and within a paddle column, reverse DY upward
-- [ ] Wire `CheckPaddle` into `GameState.Tick()` alongside `CheckWalls`
-- [ ] Unit tests in `CollisionDetectorTests`
-- [ ] Integration tests in `GameStateTests`
-
----
-
-## 3. Game over detection
-
-- [ ] In `GameState.Tick()`: if ball moves below paddle row without a hit, set `Status = GameOver`
-- [ ] `Tick()` should be a no-op when `Status == GameOver`
-- [ ] Integration tests
+- [x] Add `HasReachedPaddleRow` property to `Ball` (Y >= `GameDimensions.Height - 2`)
+- [x] Add `BounceRight/Left/Up/Down` methods to `Ball` to encapsulate reversal logic
+- [x] Add `CollisionDetector.CheckPaddle(ball, paddle)` — reverses DY when ball hits paddle
+- [x] Wire `CheckPaddle` into `GameState.Tick()` alongside `CheckWalls`
+- [x] Unit tests in `BallTests` and `CollisionDetectorTests`
+- [x] Integration tests in `GameStateTests`
+- [x] Add `GameState.Initial`, `WithPlaying`, `WithGameOver` factory methods
+- [x] Extract `PaddleWidth` constant into `GameDimensions`
 
 ---
 
-## 4. Score tracking
+## 3. Game over detection ✅
 
-- [ ] Increment `Score` in `GameState.Tick()` when a paddle collision occurs
-- [ ] Integration tests
+- [x] In `GameState.Tick()`: if ball moves below paddle row without a hit, set `Status = GameOver`
+- [x] `Tick()` should be a no-op when `Status == GameOver`
+- [x] Tests in `GameStateTests`
 
 ---
 
-## 5. Game loop and input (`Program.cs` + `Game`)
+## 4. Score tracking ✅
 
-- [ ] Add `Game.MovePaddleLeft()` / `Game.MovePaddleRight()` that update `_state` and re-render
-- [ ] Replace `Console.ReadKey` stub in `Program.cs` with a loop that:
-  - Sleeps for a fixed tick interval (e.g. 50ms)
-  - Checks `Console.KeyAvailable` for non-blocking input (left/right arrows move paddle, Q quits)
-  - Calls `game.Tick()` each iteration
-  - Exits when `Status == GameOver`
+- [x] Increment `Score` in `GameState.Tick()` when a paddle collision occurs
+- [x] Tests in `GameStateTests`
+
+---
+
+## 5. Game loop and input (`Program.cs` + `Game`) ✅
+
+- [x] Add `Game.MovePaddleLeft()` / `Game.MovePaddleRight()` that update `_state` and re-render
+- [x] Extract `GameLoop.Run(Game, IInputSource)` — testable loop with fake input support
+- [x] `ConsoleInputSource` — real implementation with 50ms tick interval and non-blocking key read
+- [x] Replace `Console.ReadKey` stub in `Program.cs` with `GameLoop.Run(game, new ConsoleInputSource())`
+- [x] Integration test: `ShouldStopRunning_WhenGameIsOver`

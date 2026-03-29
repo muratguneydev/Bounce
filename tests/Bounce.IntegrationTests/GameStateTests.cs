@@ -1,5 +1,6 @@
 namespace Bounce.IntegrationTests;
 
+using System;
 using Bounce.Testing;
 using NUnit.Framework;
 using Shouldly;
@@ -126,5 +127,67 @@ public class GameTests
         // Assert
         _renderer.ShouldShowPaddleAt(Position.OnBottomEdge(_initialPaddle.X + _initialPaddle.Width));
         _renderer.ShouldShowEmptyAt(Position.OnBottomEdge(_initialPaddle.X));
+    }
+
+    [Test]
+    public void ShouldStopRunning_WhenGameIsOver()
+    {
+        // Arrange
+        var ball = new Ball(new Position(1, GameDimensions.BottomY - 1), DX: 1, DY: 1);
+        var paddle = new Paddle(X: 50, Width: GameDimensions.PaddleWidth);
+        var game = new Game(_renderer, ball, paddle);
+        game.Start();
+        var input = new FakeInputSource();
+
+        // Act
+        GameLoop.Run(game, input);
+
+        // Assert
+        game.IsOver.ShouldBeTrue();
+    }
+
+    [Test]
+    public void ShouldMovePaddleLeft_WhenLeftArrowPressed()
+    {
+        // Arrange
+        var game = new Game(_renderer, _initialBall, _initialPaddle);
+        game.Start();
+        var input = new FakeInputSource(ConsoleKey.LeftArrow, ConsoleKey.Q);
+
+        // Act
+        GameLoop.Run(game, input);
+
+        // Assert
+        _renderer.ShouldShowPaddleAt(Position.OnBottomEdge(_initialPaddle.X - 1));
+    }
+
+    [Test]
+    public void ShouldMovePaddleRight_WhenRightArrowPressed()
+    {
+        // Arrange
+        var game = new Game(_renderer, _initialBall, _initialPaddle);
+        game.Start();
+        var input = new FakeInputSource(ConsoleKey.RightArrow, ConsoleKey.Q);
+
+        // Act
+        GameLoop.Run(game, input);
+
+        // Assert
+        _renderer.ShouldShowPaddleAt(Position.OnBottomEdge(_initialPaddle.X + _initialPaddle.Width));
+    }
+
+    [Test]
+    public void ShouldStop_WhenQPressed()
+    {
+        // Arrange
+        var game = new Game(_renderer, _initialBall, _initialPaddle);
+        game.Start();
+        var input = new FakeInputSource(ConsoleKey.Q);
+
+        // Act
+        GameLoop.Run(game, input);
+
+        // Assert
+        game.IsOver.ShouldBeFalse();
     }
 }

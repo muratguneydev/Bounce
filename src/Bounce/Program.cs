@@ -19,6 +19,6 @@ public class Program
         var game = new Game(renderer, ball, paddle);
         game.Start();
 
-        Console.ReadKey(intercept: true);
+        GameLoop.Run(game, new ConsoleInputSource());
     }
 }
