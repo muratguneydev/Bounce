@@ -13,6 +13,11 @@ public record GameState(Ball Ball, Paddle Paddle, int Score, GameStatus Status)
 
     public GameState Tick()
     {
+        if (Status == GameStatus.GameOver)
+        {
+            return this;
+        }
+
         var ball = CollisionDetector.CheckWalls(Ball);
         var ballAfterPaddleCheck = CollisionDetector.CheckPaddle(ball, Paddle);
         var movedBall = ballAfterPaddleCheck.Move();

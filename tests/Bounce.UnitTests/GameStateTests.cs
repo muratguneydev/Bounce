@@ -84,4 +84,19 @@ public class GameStateTests
         var expected = GameState.WithGameOver(ball.Move(), paddle, score: 0);
         result.ShouldBe(expected);
     }
+
+    [Test]
+    public void ShouldNotChangeState_WhenTickCalledAfterGameOver()
+    {
+        // Arrange
+        var paddle = new Paddle(X: 10, Width: GameDimensions.PaddleWidth);
+        var ball = new Ball(new Position(1, GameDimensions.BottomY), DX: 1, DY: 1);
+        var state = GameState.WithGameOver(ball, paddle, score: 3);
+
+        // Act
+        var result = state.Tick();
+
+        // Assert
+        result.ShouldBe(state);
+    }
 }
