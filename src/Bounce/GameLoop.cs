@@ -10,7 +10,9 @@ public static class GameLoop
 
             if (input.HasInput)
             {
-                if (HandleKey(game, input.ReadKey()))
+                var quitRequested = HandleKey(game, input.ReadKey());
+
+                if (quitRequested)
                 {
                     break;
                 }
