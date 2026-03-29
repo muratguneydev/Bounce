@@ -21,4 +21,16 @@ public class Game
         _state = _state.Tick();
         _renderer.Render(_state);
     }
+
+    public void MovePaddleLeft()
+    {
+        _state = _state with { Paddle = _state.Paddle.MoveLeft() };
+        _renderer.Render(_state);
+    }
+
+    public void MovePaddleRight()
+    {
+        _state = _state with { Paddle = _state.Paddle.MoveRight(GameDimensions.Width) };
+        _renderer.Render(_state);
+    }
 }

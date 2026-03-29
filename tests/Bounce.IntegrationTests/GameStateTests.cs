@@ -67,4 +67,19 @@ public class GameTests
         _renderer.ShouldShowHorizontalWallAt(Position.OnTopEdge(1));
         _renderer.ShouldShowCornerAt(Position.TopRight());
     }
+
+    [Test]
+    public void ShouldRenderPaddleOneColumnLeft_AfterMovePaddleLeft()
+    {
+        // Arrange
+        var game = new Game(_renderer, _initialBall, _initialPaddle);
+        game.Start();
+
+        // Act
+        game.MovePaddleLeft();
+
+        // Assert
+        _renderer.ShouldShowPaddleAt(Position.OnBottomEdge(_initialPaddle.X - 1));
+        _renderer.ShouldShowEmptyAt(Position.OnBottomEdge(_initialPaddle.X + _initialPaddle.Width - 1));
+    }
 }
