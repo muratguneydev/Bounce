@@ -36,4 +36,24 @@ public class BallTests
         // Assert
         result.ShouldBe(expected);
     }
+
+    [Test]
+    public void ShouldHaveReachedPaddleRow_WhenBallIsAtPaddleRow()
+    {
+        // Arrange
+        var ball = new Ball(new Position(10, GameDimensions.Height - 2), DX: 1, DY: 1);
+
+        // Act & Assert
+        ball.HasReachedPaddleRow.ShouldBeTrue();
+    }
+
+    [Test]
+    public void ShouldNotHaveReachedPaddleRow_WhenBallIsAbovePaddleRow()
+    {
+        // Arrange
+        var ball = new Ball(new Position(10, GameDimensions.Height - 3), DX: 1, DY: 1);
+
+        // Act & Assert
+        ball.HasReachedPaddleRow.ShouldBeFalse();
+    }
 }
