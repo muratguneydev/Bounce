@@ -20,11 +20,7 @@ public static class BounceFixture
             new Paddle(X: Math.Abs(i % 100) + 10, Width: 7)));
 
         fixture.Customize<GameState>(c => c.FromFactory(() =>
-            new GameState(
-                fixture.Create<Ball>(),
-                fixture.Create<Paddle>(),
-                Score: 0,
-                Status: GameStatus.Playing)));
+            GameState.Initial(fixture.Create<Ball>(), fixture.Create<Paddle>())));
 
         return fixture;
     }

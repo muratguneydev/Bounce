@@ -11,7 +11,7 @@ public class GameStateTests
         // Arrange
         var ball = new Ball(new Position(1, 5), DX: -1, DY: 1);
         var paddle = new Paddle(X: 26, Width: 7);
-        var state = new GameState(ball, paddle, Score: 0, Status: GameStatus.Playing);
+        var state = GameState.Initial(ball, paddle);
 
         // Act
         var result = state.Tick();
@@ -27,7 +27,7 @@ public class GameStateTests
         // Arrange
         var ball = new Ball(new Position(GameDimensions.Width - 2, 5), DX: 1, DY: 1);
         var paddle = new Paddle(X: 26, Width: 7);
-        var state = new GameState(ball, paddle, Score: 0, Status: GameStatus.Playing);
+        var state = GameState.Initial(ball, paddle);
 
         // Act
         var result = state.Tick();
@@ -43,13 +43,29 @@ public class GameStateTests
         // Arrange
         var ball = new Ball(new Position(10, 1), DX: 1, DY: -1);
         var paddle = new Paddle(X: 26, Width: 7);
-        var state = new GameState(ball, paddle, Score: 0, Status: GameStatus.Playing);
+        var state = GameState.Initial(ball, paddle);
 
         // Act
         var result = state.Tick();
 
         // Assert
         var expected = state with { Ball = ball with { DY = 1, Position = new Position(11, 2) } };
+        result.ShouldBe(expected);
+    }
+
+    [Test]
+    public void ShouldReverseBallDY_WhenBallHitsPaddle_AfterTick()
+    {
+        // Arrange
+        var paddle = new Paddle(X: 10, Width: GameDimensions.PaddleWidth);
+        var ball = new Ball(new Position(10, GameDimensions.Height - 2), DX: 1, DY: 1);
+        var state = GameState.Initial(ball, paddle);
+
+        // Act
+        var result = state.Tick();
+
+        // Assert
+        var expected = state with { Ball = ball with { DY = -1, Position = new Position(11, GameDimensions.Height - 3) } };
         result.ShouldBe(expected);
     }
 }
