@@ -10,11 +10,11 @@ public class PaddleTests
     private readonly Fixture _fixture = BounceFixture.Create();
 
     [Test]
-    public void ShouldDecreaseXByOne_WhenMovingLeft()
+    public void ShouldDecreaseXByMoveOffset_WhenMovingLeft()
     {
         // Arrange
         var paddle = _fixture.Create<Paddle>();
-        var expected = paddle with { X = paddle.X - 1 };
+        var expected = paddle with { X = paddle.X - GameDimensions.PaddleMoveOffset };
 
         // Act
         var result = paddle.MoveLeft();
@@ -24,12 +24,12 @@ public class PaddleTests
     }
 
     [Test]
-    public void ShouldIncreaseXByOne_WhenMovingRight()
+    public void ShouldIncreaseXByMoveOffset_WhenMovingRight()
     {
         // Arrange
         var paddle = _fixture.Create<Paddle>();
-        var screenWidth = paddle.X + paddle.Width + 10;
-        var expected = paddle with { X = paddle.X + 1 };
+        var screenWidth = paddle.X + paddle.Width + GameDimensions.PaddleMoveOffset + 1;
+        var expected = paddle with { X = paddle.X + GameDimensions.PaddleMoveOffset };
 
         // Act
         var result = paddle.MoveRight(screenWidth);

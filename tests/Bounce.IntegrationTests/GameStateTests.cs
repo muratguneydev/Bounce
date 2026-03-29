@@ -81,7 +81,7 @@ public class GameTests
         game.MovePaddleLeft();
 
         // Assert
-        _renderer.ShouldShowPaddleAt(Position.OnBottomEdge(_initialPaddle.X - 1));
+        _renderer.ShouldShowPaddleAt(Position.OnBottomEdge(_initialPaddle.X - GameDimensions.PaddleMoveOffset));
         _renderer.ShouldShowEmptyAt(Position.OnBottomEdge(_initialPaddle.X + _initialPaddle.Width - 1));
     }
 
@@ -125,7 +125,7 @@ public class GameTests
         game.MovePaddleRight();
 
         // Assert
-        _renderer.ShouldShowPaddleAt(Position.OnBottomEdge(_initialPaddle.X + _initialPaddle.Width));
+        _renderer.ShouldShowPaddleAt(Position.OnBottomEdge(_initialPaddle.X + _initialPaddle.Width + GameDimensions.PaddleMoveOffset - 1));
         _renderer.ShouldShowEmptyAt(Position.OnBottomEdge(_initialPaddle.X));
     }
 
@@ -158,7 +158,7 @@ public class GameTests
         GameLoop.Run(game, input);
 
         // Assert
-        _renderer.ShouldShowPaddleAt(Position.OnBottomEdge(_initialPaddle.X - 1));
+        _renderer.ShouldShowPaddleAt(Position.OnBottomEdge(_initialPaddle.X - GameDimensions.PaddleMoveOffset));
     }
 
     [Test]
@@ -173,7 +173,7 @@ public class GameTests
         GameLoop.Run(game, input);
 
         // Assert
-        _renderer.ShouldShowPaddleAt(Position.OnBottomEdge(_initialPaddle.X + _initialPaddle.Width));
+        _renderer.ShouldShowPaddleAt(Position.OnBottomEdge(_initialPaddle.X + _initialPaddle.Width + GameDimensions.PaddleMoveOffset - 1));
     }
 
     [Test]

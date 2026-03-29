@@ -6,19 +6,13 @@ public record Paddle(int X, int Width)
 
     public Paddle MoveLeft()
     {
-        if (X > 0)
-        {
-            return this with { X = X - 1 };
-        }
-        return this;
+        var newX = Math.Max(0, X - GameDimensions.PaddleMoveOffset);
+        return this with { X = newX };
     }
 
     public Paddle MoveRight(int screenWidth)
     {
-        if (X + Width < screenWidth)
-        {
-            return this with { X = X + 1 };
-        }
-        return this;
+        var newX = Math.Min(screenWidth - Width, X + GameDimensions.PaddleMoveOffset);
+        return this with { X = newX };
     }
 }
