@@ -29,6 +29,9 @@ public record GameState(Ball Ball, Paddle Paddle, int Score, GameStatus Status)
             return WithGameOver(movedBall, Paddle, Score);
         }
 
-        return this with { Ball = movedBall };
+        var ballHitPaddle = ball.HasReachedPaddleRow && !ballAfterPaddleCheck.HasSameVerticalDirectionAs(ball);
+        var newScore = ballHitPaddle ? Score + 1 : Score;
+
+        return this with { Ball = movedBall, Score = newScore };
     }
 }
