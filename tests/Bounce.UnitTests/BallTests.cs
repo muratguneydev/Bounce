@@ -78,6 +78,28 @@ public class BallTests
     }
 
     [Test]
+    public void ShouldHaveSameVerticalDirection_WhenDYIsEqual()
+    {
+        // Arrange
+        var ball = new Ball(new Position(10, 5), DX: 1, DY: 1);
+        var other = new Ball(new Position(5, 3), DX: -1, DY: 1);
+
+        // Act & Assert
+        ball.HasSameVerticalDirectionAs(other).ShouldBeTrue();
+    }
+
+    [Test]
+    public void ShouldNotHaveSameVerticalDirection_WhenDYDiffers()
+    {
+        // Arrange
+        var ball = new Ball(new Position(10, 5), DX: 1, DY: 1);
+        var other = new Ball(new Position(5, 3), DX: 1, DY: -1);
+
+        // Act & Assert
+        ball.HasSameVerticalDirectionAs(other).ShouldBeFalse();
+    }
+
+    [Test]
     public void ShouldHaveReachedPaddleRow_WhenBallIsAtPaddleRow()
     {
         // Arrange

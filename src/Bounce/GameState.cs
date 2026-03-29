@@ -14,7 +14,16 @@ public record GameState(Ball Ball, Paddle Paddle, int Score, GameStatus Status)
     public GameState Tick()
     {
         var ball = CollisionDetector.CheckWalls(Ball);
-        ball = CollisionDetector.CheckPaddle(ball, Paddle);
-        return this with { Ball = ball.Move() };
+        var ballAfterPaddleCheck = CollisionDetector.CheckPaddle(ball, Paddle);
+        var movedBall = ballAfterPaddleCheck.Move();
+
+        var ballMissedPaddle = ball.HasReachedPaddleRow && ballAfterPaddleCheck.HasSameVerticalDirectionAs(ball);
+
+        if (ballMissedPaddle)
+        {
+            return WithGameOver(movedBall, Paddle, Score);
+        }
+
+        return this with { Ball = movedBall };
     }
 }
