@@ -85,6 +85,22 @@ public class GameTests
     }
 
     [Test]
+    public void ShouldBeOver_WhenBallMissesPaddle()
+    {
+        // Arrange
+        var ball = new Ball(new Position(1, GameDimensions.BottomY - 1), DX: 1, DY: 1);
+        var paddle = new Paddle(X: 10, Width: GameDimensions.PaddleWidth);
+        var game = new Game(_renderer, ball, paddle);
+        game.Start();
+
+        // Act
+        game.Tick();
+
+        // Assert
+        game.IsOver.ShouldBeTrue();
+    }
+
+    [Test]
     public void ShouldNotBeOver_WhenGameStarts()
     {
         // Arrange
