@@ -24,7 +24,7 @@ public static class CollisionDetector
 
     public static Ball CheckPaddle(Ball ball, Paddle paddle)
     {
-        if (ball.HasReachedPaddleRow && paddle.OccupiedColumns.Contains(ball.Position.X))
+        if (ball.HasReachedPaddleRow && paddle.CoversColumn(ball.Position.X))
         {
             return ball.BounceUp();
         }

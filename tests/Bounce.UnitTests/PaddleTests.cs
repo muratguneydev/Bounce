@@ -66,4 +66,27 @@ public class PaddleTests
         // Assert
         result.ShouldBe(expected);
     }
+
+    [Test]
+    public void ShouldCoverColumn_WhenColumnIsWithinPaddle()
+    {
+        // Arrange
+        var paddle = new Paddle(X: 10, Width: 7);
+
+        // Act & Assert
+        paddle.CoversColumn(10).ShouldBeTrue();
+        paddle.CoversColumn(13).ShouldBeTrue();
+        paddle.CoversColumn(16).ShouldBeTrue();
+    }
+
+    [Test]
+    public void ShouldNotCoverColumn_WhenColumnIsOutsidePaddle()
+    {
+        // Arrange
+        var paddle = new Paddle(X: 10, Width: 7);
+
+        // Act & Assert
+        paddle.CoversColumn(9).ShouldBeFalse();
+        paddle.CoversColumn(17).ShouldBeFalse();
+    }
 }

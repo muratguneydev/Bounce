@@ -40,12 +40,15 @@ public static class FrameBuilder
 
     private static void DrawPaddle(Frame frame, Paddle paddle)
     {
-        foreach (var col in paddle.OccupiedColumns)
+        for (var col = 0; col < frame.Width; col++)
         {
-            var position = Position.OnBottomEdge(col);
-            if (frame.Contains(position))
+            if (paddle.CoversColumn(col))
             {
-                frame.PlacePaddle(position);
+                var position = Position.OnBottomEdge(col);
+                if (frame.Contains(position))
+                {
+                    frame.PlacePaddle(position);
+                }
             }
         }
     }

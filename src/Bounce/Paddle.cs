@@ -2,7 +2,7 @@ namespace Bounce;
 
 public record Paddle(int X, int Width)
 {
-    public IEnumerable<int> OccupiedColumns => Enumerable.Range(X, Width);
+    public bool CoversColumn(int x) => x >= X && x < X + Width;
 
     public Paddle MoveLeft()
     {
